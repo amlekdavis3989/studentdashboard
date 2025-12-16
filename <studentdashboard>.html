@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2> Student Dashboard</h2>
+<input id="nameIn" placeholder="Student Name">
+<input id="gradeIn" placeholder="Grade" type="number">
+<button onclick="addStudent()">Add Student</button>
+<div id="dashboard"></div>
+
+<script>
+let students = [];
+function addStudent() {
+    let name = document.getElementById("nameIn").value;
+    let grade = document.getElementById("gradeIn").value;
+    students.push({name: name, grade: grade});
+    updateDashboard();
+}
+function updateDashboard() {
+    let html = "<table border='1'><tr><th>Name</th><th>Grade</th><th>Status</th></tr>";
+    let total = 0;
+    students.forEach(s => {
+        total += parseInt(s.grade);
+        let status = s.grade >= 60 ? " Pass" : " Fail";
+        html += `<tr><td>${s.name}</td><td>${s.grade}</td><td>${status}</td></tr>`;
+    });
+    let avg = students.length > 0 ? total/students.length : 0;
+    html += `</table><p><b>Average: ${avg.toFixed(1)}</b> | Students: ${students.length}</p>`;
+    document.getElementById("dashboard").innerHTML = html;
+}
+</script>
+</body>
+</html>
